@@ -9,6 +9,8 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",
+    "lint:sol": "cd blockchain/ethereum && solhint --fix contracts/*.sol",
+    "test:sol": "cd blockchain/ethereum && truffle test",
     "test": "jest",
     "test-watch": "jest --watch"
   },
@@ -40,6 +42,8 @@
     "eslint-plugin-vue": "^7.12.1",
     "jest": "^27.0.5",
     "prettier": "^2.3.2",
+    "solhint": "^3.3.6",
+    "truffle": "^5.4.14",
     "ts-jest": "^27.0.3",
     "vue-jest": "^3.0.4"
   }
