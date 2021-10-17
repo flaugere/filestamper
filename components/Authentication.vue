@@ -8,19 +8,18 @@
 import { Vue, Component } from 'vue-property-decorator'
 @Component
 export default class Authentication extends Vue {
-  isMetaMaskInstalled: Boolean = () => {
+  isMetaMaskInstalled = () : Boolean => {
     const { ethereum } = window
     return Boolean(ethereum && ethereum.isMetaMask)
   }
 
   async login() {
-    if (false === this.isMetaMaskInstalled()) {
+    if (this.isMetaMaskInstalled() === false) {
       this.$emit('error', 'MetaMask missing');
       return;
     }
     try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      this.$store.commit('account/set', accounts[0])
+      this.$store.commit('account/setAddress', await this.$blockchain().getAccount())
     } catch (error) {
       console.error(error)
     }
