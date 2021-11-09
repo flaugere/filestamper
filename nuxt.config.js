@@ -1,7 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
-  server: {     
+  server: {
     port: 3000, // default: 3000     
     host: '0.0.0.0', // default: localhost   
   },
@@ -29,6 +30,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/Stamper.ts', mode: 'client' },
+    { src: '~/plugins/BlockchainConfig.ts', mode: 'client' },
+    { src: '~/plugins/Blockchain.ts', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -36,10 +40,9 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    ['@nuxtjs/dotenv', { systemvars: true }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -81,5 +84,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend(config, _ctx) {
+      config.node = {
+        fs: "empty"
+      };
+    }
   }
 }

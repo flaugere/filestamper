@@ -30,18 +30,11 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <Authentication />
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>
@@ -49,13 +42,13 @@
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} &nbsp;</span>
+      <span>Contract : {{ getContractAddress() }}</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -65,14 +58,19 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Dashboard',
           to: '/'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Blockchain Filestamper'
+      title: 'Testament on chain'
+    }
+  },
+  methods: {
+    getContractAddress() {
+      return this.$blockchainConfig().getContractAddress();
     }
   }
 }
